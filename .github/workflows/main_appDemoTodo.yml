@@ -45,7 +45,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'appDemoTodo'
+        app-name: appDemoTodo
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_138a3f5788104dbf9f272f2c27a58045 }}
         images: 'github.com/ju4nmoreno/todo-demo/${{ secrets.AzureAppService_ContainerUsername_5bad26d3068a40aa9007cb9d2c1c9de0 }}/containerRegisterNodeApp:${{ github.sha }}'
