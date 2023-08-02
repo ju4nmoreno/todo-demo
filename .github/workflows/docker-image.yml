@@ -32,5 +32,5 @@ jobs:
         app-name: appdemotodo
         slot-name: 'Production'
         images: containerdemotodo.azurecr.io/appdemotodo:${{ github.sha }}
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_138a3f5788104dbf9f272f2c27a58045 }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_138a3f5788104dbf9f272f2c27a58045 }}
 
