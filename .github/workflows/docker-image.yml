@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+  
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: containerdemotodo.azurecr.io
+        username: containerDemoTodo
+        password: fqfESIGPAj6uBbDXuwf+qqAW94H8Vn7ztDFYWeO+0b+ACRA3bfQb
+
+
+
+        
+    - name: Build the Docker image
+      run: docker build -t containerdemotodo.azurecr.io/appDemoTodo:${{ github.sha }} .
+    
+    - name: Push Docker image to Azure Container Registry
+      run: docker push containerdemotodo.azurecr.io/appDemoTodo:${{ github.sha }}
+      
+
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: appDemoTodo
+        slot-name: 'Production'
+        images: containerdemotodo.azurecr.io/appDemoTodo:${{ github.sha }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_138a3f5788104dbf9f272f2c27a58045 }}
+
